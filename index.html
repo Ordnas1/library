@@ -6,23 +6,49 @@
     <title>Library App</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-    <script src="scripts/script.js"></script>
+    
 </head>
 <body>
     <header class="main-header">
         <h1>Library</h1>    
         <p class="header-sub">An app by Sandro Peirano</p>
+        
     </header>
     <main>
-        <div id="container" class="library-container">
-            <div id="container-card" class="library-card">
-               <h2>Titulo</h2><hr>
-               <p class="author">Written by Author P. Writeman</p>
-               <p class="pages">9001 pages</p>
-               <p class="isread">Already read</p>
+        <section class="addbook ">
+            <button id="btn-add-book" class="btn-add-book addbook__btn">Add Book</button>
+            <div id="hideform" class="hideform addbook--hidden ">
+                <form id="form-main" class="addbook-form " action="#">
+                    <div class="form-row">
+                        <label for="author">Author</label>
+                        <input type="text" name="author" id="author" minlength="1">
+                    </div>
+                    <div class="form-row">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" id="title" minlength="1">
+                    </div>
+                    <div class="form-row">
+                        <label for="pages">Number of pages</label>
+                        <input type="number" name="pages" id="pages" minlength="1">
+                    </div>
+                    <div class="form-row form-row--radio">
+                            <input type="radio" name="isread" id="yesread" value="true" checked>
+                            <label for="yesread">Already read</label>
+                    </div>
+                    <div class="form-row form-row--radio">
+                        <input type="radio" name="isread" id="noread" value="false" >
+                        <label for="noread">Not yet read</label>
+                    </div>
+                    
+                </form>
+                <button id="form-submit" class="addbook__btn">Add new book</button>
             </div>
+        </section>
+        <div id="container" class="library-container">
+            
             
         </div>
     </main>
 </body>
+<script src="scripts/script.js"></script>
 </html>

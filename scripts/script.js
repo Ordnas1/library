@@ -1,8 +1,7 @@
 // Global vars
-
-
 let myLibrary = [];
 
+//Book object and constructor
 function Book(title, author, totalPages, isRead) {
     this.title = title;
     this.author = author;
@@ -18,7 +17,7 @@ function addBooktoLibrary(title, author, totalPages, isRead) {
     myLibrary.push(newBook);
 }
 
-function render(Book) {
+function renderBook(Book) {
     const container = document.querySelector("#container")
     let card = document.createElement('div');
     let cardTitle = document.createElement('h2');
@@ -46,6 +45,39 @@ function render(Book) {
     container.appendChild(card);
 }
 
-function debugRender() {
-    myLibrary.forEach(book => render(book))
+function render() {
+    let container = document.querySelector("#container")
+    container.querySelectorAll('*').forEach(n => n.remove())
+    myLibrary.forEach(book => renderBook(book))
 }
+
+// Form functions
+
+let formbtn = document.querySelector('#btn-add-book');
+let hideform = document.querySelector('#hideform');
+
+formbtn.addEventListener('click', () => {
+    hideform.classList.toggle('addbook--hidden')
+    console.log("click")
+})
+
+let form = document.querySelector("#form-main")
+let formSubmit = document.querySelector("#form-submit") 
+
+formSubmit.addEventListener('click',() => {
+    addBooktoLibrary(
+        form.elements[0].value,
+        form.elements[1].value,
+        form.elements[2].value,
+        form.elements["isread"].value === "true" ? true : false
+    )
+    render();
+    hideform.classList.toggle('addbook--hidden')
+})
+
+form.addEventListener("click", e => {
+    console.log(e)
+    console.log(e.elements)
+})
+
+// Helper functions for console debugging
