@@ -73,6 +73,10 @@ formSubmit.addEventListener('click',() => {
     )
     render();
     hideform.classList.toggle('addbook--hidden')
+    form.elements[0].value = ""
+    form.elements[1].value = ""
+    form.elements[2].value = ""
+    form.elements["isread"].value = "true"
 })
 
 form.addEventListener("click", e => {
