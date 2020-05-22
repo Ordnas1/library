@@ -10,6 +10,9 @@ function Book(title, author, totalPages, isRead) {
     this.info = function() {
         return `${this.title} by ${this.author}, ${this.totalPages} pages total, ${isRead ? "already read" : "not read yet"}.`
     }
+    this.toggleRead = function() {
+        this.isRead ? this.isRead = false : this.isRead = true;
+    }
 }
 
 function addBooktoLibrary(title, author, totalPages, isRead) {
@@ -37,6 +40,7 @@ function renderBook(Book, index) {
     btnRemove.classList.add("library_btn");
     btnRemove.classList.add("library_btn_remove");
     btnToggleRead.classList.add("library_btn");
+    btnToggleRead.classList.add("library_btn_toggleRead")
 
     cardTitle.textContent = Book.title;
     cardAuthor.textContent = `Written by ${Book.author}`;
@@ -58,9 +62,11 @@ function renderBook(Book, index) {
 
     card.setAttribute("data-index",index)
     btnRemove.setAttribute("data-index",index)
+    btnToggleRead.setAttribute("data-index",index)
 }
 
 let cardbtnrmv = document.querySelectorAll("library_btn_remove")
+let cardbtntoggle = document.querySelectorAll("library_btn_toggleRead")
 function render() {
     let container = document.querySelector("#container")
     container.querySelectorAll('*').forEach(n => n.remove())
@@ -71,11 +77,19 @@ function render() {
     cardbtnrmv = document.querySelectorAll(".library_btn_remove")
     cardbtnrmv.forEach((btn) => {
         btn.addEventListener("click", (e) => {
-            console.log(e)
             let removeIndex = e.target.dataset.index
             myLibrary.splice(removeIndex,1)
             render();
         } )
+    })
+
+    cardbtntoggle = document.querySelectorAll(".library_btn_toggleRead")
+    cardbtntoggle.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            let toggleIndex = e.target.dataset.index
+            myLibrary[toggleIndex].toggleRead()
+            render()
+        })
     })
     
 }
