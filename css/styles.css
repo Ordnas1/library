@@ -131,3 +131,17 @@ main {
     text-align: center;
     margin: 0;
 }
+
+.library_btn {
+    -webkit-appearance: none;
+    padding: 1em 1em;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.btnDiv {
+    display: flex;
+    justify-content: space-between;
+}

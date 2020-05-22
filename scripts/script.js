@@ -17,7 +17,7 @@ function addBooktoLibrary(title, author, totalPages, isRead) {
     myLibrary.push(newBook);
 }
 
-function renderBook(Book) {
+function renderBook(Book, index) {
     const container = document.querySelector("#container")
     let card = document.createElement('div');
     let cardTitle = document.createElement('h2');
@@ -25,30 +25,59 @@ function renderBook(Book) {
     let cardAuthor = document.createElement('p');
     let cardPages = document.createElement('p');
     let cardIsRead = document.createElement('p');
+    let btnDiv = document.createElement('div');
+    let btnRemove = document.createElement('button');
+    let btnToggleRead = document.createElement('button');
 
     card.classList.add("library-card");
     cardAuthor.classList.add("author");
     cardPages.classList.add("pages");
     cardIsRead.classList.add("isread");
+    btnDiv.classList.add("btnDiv")
+    btnRemove.classList.add("library_btn");
+    btnRemove.classList.add("library_btn_remove");
+    btnToggleRead.classList.add("library_btn");
 
     cardTitle.textContent = Book.title;
     cardAuthor.textContent = `Written by ${Book.author}`;
     cardPages.textContent = Book.totalPages;
     cardIsRead.textContent = Book.isRead ? "Already read" : "Not read yet"
+    btnRemove.textContent = "Remove Book"
+    btnToggleRead.textContent = "Toggle Read"
 
     card.appendChild(cardTitle);
     card.appendChild(cardHRule);
     card.appendChild(cardAuthor);
     card.appendChild(cardPages);
     card.appendChild(cardIsRead);
+    card.appendChild(btnDiv);
+    btnDiv.appendChild(btnRemove);
+    btnDiv.appendChild(btnToggleRead);
 
     container.appendChild(card);
+
+    card.setAttribute("data-index",index)
+    btnRemove.setAttribute("data-index",index)
 }
 
+let cardbtnrmv = document.querySelectorAll("library_btn_remove")
 function render() {
     let container = document.querySelector("#container")
     container.querySelectorAll('*').forEach(n => n.remove())
-    myLibrary.forEach(book => renderBook(book))
+    for (let i = 0; i < myLibrary.length; i++) {
+        renderBook(myLibrary[i],i)
+    }
+
+    cardbtnrmv = document.querySelectorAll(".library_btn_remove")
+    cardbtnrmv.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            console.log(e)
+            let removeIndex = e.target.dataset.index
+            myLibrary.splice(removeIndex,1)
+            render();
+        } )
+    })
+    
 }
 
 // Form functions
@@ -58,7 +87,7 @@ let hideform = document.querySelector('#hideform');
 
 formbtn.addEventListener('click', () => {
     hideform.classList.toggle('addbook--hidden')
-    console.log("click")
+    
 })
 
 let form = document.querySelector("#form-main")
@@ -84,4 +113,6 @@ form.addEventListener("click", e => {
     console.log(e.elements)
 })
 
-// Helper functions for console debugging
+// Card functions
+
+
